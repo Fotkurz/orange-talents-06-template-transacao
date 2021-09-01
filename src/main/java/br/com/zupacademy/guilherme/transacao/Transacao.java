@@ -3,33 +3,21 @@ package br.com.zupacademy.guilherme.transacao;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "tbl_transactions")
 public class Transacao {
 
-    /**
-     *
-     * {
-     *    "id":"c63fd0e0-eccb-4af3-9d49-39cde0ffdaf1",
-     *    "valor":1.4874248222626738,
-     *    "estabelecimento":{
-     *       "nome":"B. A. Ware",
-     *       "cidade":"North Winstonbury",
-     *       "endereco":"18327 Mills Groves, West Marquita, SD 31244"
-     *    },
-     *    "cartao":{
-     *       "id":"b0012b90-42c8-40e6-903b-64acb3aa649b",
-     *       "email":"luram.archanjo@zup.com.br"
-     *    },
-     *    "efetivadaEm":"2020-08-10T13:16:56"
-     * }
-     *
-     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private String id;
+    private String idClient;
     private Double valor;
+    @ManyToOne
     private Estabelecimento estabelecimento;
+    @ManyToOne
     private Cartao cartao;
     private String efetivadaEm;
 
@@ -42,7 +30,7 @@ public class Transacao {
                      @JsonProperty("estabelecimento") Estabelecimento estabelecimento,
                      @JsonProperty("cartao") Cartao cartao,
                      @JsonProperty("efetivadaEm") String efetivadaEm) {
-        this.id = id;
+        this.idClient = id;
         this.valor = valor;
         this.estabelecimento = estabelecimento;
         this.cartao = cartao;
@@ -50,7 +38,7 @@ public class Transacao {
     }
 
     public String getId() {
-        return id;
+        return idClient;
     }
 
     public Double getValor() {

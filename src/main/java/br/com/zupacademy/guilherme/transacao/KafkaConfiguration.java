@@ -36,16 +36,16 @@ public class KafkaConfiguration {
     }
 
     @Bean
-    public ConsumerFactory<String, Transacao> transactionConsumerFactory() {
+    public ConsumerFactory<String, TransacaoListenerDto> transactionConsumerFactory() {
         StringDeserializer stringDeserializer = new StringDeserializer();
-        JsonDeserializer<Transacao> jsonDeserializer = new JsonDeserializer<>(Transacao.class, false);
+        JsonDeserializer<TransacaoListenerDto> jsonDeserializer = new JsonDeserializer<TransacaoListenerDto>(TransacaoListenerDto.class, false);
 
         return new DefaultKafkaConsumerFactory<>(consumerConfigurations(), stringDeserializer, jsonDeserializer);
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, Transacao> kafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, Transacao> factory = new ConcurrentKafkaListenerContainerFactory<>();
+    public ConcurrentKafkaListenerContainerFactory<String, TransacaoListenerDto> kafkaListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, TransacaoListenerDto> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(transactionConsumerFactory());
 
         return factory;
